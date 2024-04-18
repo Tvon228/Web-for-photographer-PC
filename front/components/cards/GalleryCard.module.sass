@@ -1,0 +1,44 @@
+.container
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+    width: 80%
+    background: #ffffff52
+    border: 2px solid #FFCC29
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px
+    border-radius: 16px
+
+.infoWrapper
+    display: flex
+    column-gap: 110px
+    padding-left: 110px
+
+.infoItem
+    font-size: 1.1em
+    font-weight: 600
+    row-gap: 5px
+    display: flex
+    flex-direction: column
+    align-items: center
+
+.controlWrapper
+    padding: 20px 40px
+    display: flex
+    column-gap: 40px
+    
+.controlIcon
+    width: 30px
+    height: 30px
+    cursor: pointer
+    opacity: 0.7
+    transition: 150ms ease
+
+    &:hover 
+        opacity: 0.9
+
+.active
+    color: #297a1b
+
+.inactive
+    color: #bd1010
