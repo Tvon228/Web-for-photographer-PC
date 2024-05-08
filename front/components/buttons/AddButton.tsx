@@ -2,17 +2,15 @@
 
 import classes from "./Button.module.sass"
 
-import { useRouter } from "next/navigation"
+import { setAuthState } from "@/src/authSlice"
+import { useAppDispatch } from "@/src/store"
 
 export default function AddButton() {
-	const router = useRouter()
-
-	const handleClick = () => {
-		router.push("./gallery/add")
-	}
+	
+	const dispatch = useAppDispatch()
 
 	return (
-		<button onClick={handleClick} className={classes.addButton}>
+		<button onClick={() => dispatch(setAuthState(true))} className={classes.addButton}>
 			Добавить галерею
 		</button>
 	)

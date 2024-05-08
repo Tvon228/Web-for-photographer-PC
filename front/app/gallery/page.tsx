@@ -1,14 +1,12 @@
-import classes from "@/styles/gallery.module.sass"
+"use client";
+import ReduxProvider from "@/components/modalblock/redux-provider"
+import AuthViewer from "@/components/modalblock/auth-viewer"
 
-import AddButton from "@/components/buttons/AddButton"
-import GalleryList from "@/components/lists/GalleryList"
+export default function Base() {
 
-export default function addGallary() {
-	return (
-		<div className={classes.container}>
-			<div className={classes.header}>Мои Галереи</div>
-			<AddButton />
-			<GalleryList />
-		</div>
-	)
+  return (
+    <ReduxProvider>
+        <AuthViewer />
+    </ReduxProvider>
+  )
 }
