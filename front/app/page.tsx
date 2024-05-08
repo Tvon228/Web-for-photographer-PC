@@ -29,7 +29,7 @@ export default function Home() {
 	}
 
 	const toPhotographer = () => {
-		router.push("/Photographer")
+		router.push("/photographer")
 	}
 
 	return (

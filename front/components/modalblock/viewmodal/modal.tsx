@@ -1,31 +1,35 @@
 "use client"
-
-import { useState } from "react"
-import { setAuthState } from "@/src/authSlice"
-import { useAppDispatch } from "@/src/store"
+import classes from "./add.module.sass"
 
 import Image from "next/image"
-import classes from "./add.module.sass"
 import closeIcon from "@/public/icons/close.png"
 import CreateButton from "@/components/buttons/createButton/createButton"
+import useModal from "@/hooks/useModal.hook"
+import { useEffect, useRef } from "react"
 
+export default function AddGalleryModal() {
+	const containerRef = useRef<HTMLDivElement>(null)
+	const [isOpened, _, closeModal] = useModal()
 
-
-
-export default function AddGallary() {
-
-	const dispatch = useAppDispatch()
+	useEffect(() => {
+		if (isOpened) {
+			containerRef.current.style.removeProperty("z-index")
+		} else {
+			setTimeout(() => {
+				containerRef.current.style.zIndex = "-1"
+			}, 300)
+		}
+	}, [isOpened])	
 
 	return (
-
-		<div className={classes.container}>
+		<div ref={containerRef} className={classes.container + " " + (!isOpened && classes.containerHidden)}>
 			<div className={classes.content}>
 					<div>
 						<Image
 							src={closeIcon}
 							alt="close"
 							className={classes.controlIcon}
-							onClick={() => dispatch(setAuthState(false))}
+							onClick={closeModal}
 						/>
 					</div>
 					<div className={classes.header}>Создание галереи</div>

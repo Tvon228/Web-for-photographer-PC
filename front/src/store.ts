@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
-import { authReducer } from "@/src/authSlice"
+
+import modal from "./slice/modal";
 
 export const store = configureStore({
-  reducer: { auth: authReducer },
+  reducer: { modal },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });

@@ -1,16 +1,16 @@
 "use client"
 
+import useModal from "@/hooks/useModal.hook"
 import classes from "./Button.module.sass"
 
-import { setAuthState } from "@/src/authSlice"
 import { useAppDispatch } from "@/src/store"
 
 export default function AddButton() {
 	
-	const dispatch = useAppDispatch()
+	const [_, openModal] = useModal()
 
 	return (
-		<button onClick={() => dispatch(setAuthState(true))} className={classes.addButton}>
+		<button onClick={openModal} className={classes.addButton}>
 			Добавить галерею
 		</button>
 	)
