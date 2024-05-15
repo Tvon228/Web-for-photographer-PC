@@ -10,7 +10,7 @@ type DB struct {
 }
 
 func New() DB {
-	dns := "postgres://postgres:postgres@localhost:5432/cheese"
+	dns := "postgres://postgres:dflbvgf04@localhost:5432/cheese"
 	
 	db, err := gorm.Open(postgres.Open(dns), &gorm.Config{})
 

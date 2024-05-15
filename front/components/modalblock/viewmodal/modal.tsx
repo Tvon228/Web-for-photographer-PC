@@ -4,12 +4,45 @@ import classes from "./add.module.sass"
 import Image from "next/image"
 import closeIcon from "@/public/icons/close.png"
 import CreateButton from "@/components/buttons/createButton/createButton"
+
 import useModal from "@/hooks/useModal.hook"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
+import { useCreateGalleryMutation } from "@/src/api"
+
+
 
 export default function AddGalleryModal() {
 	const containerRef = useRef<HTMLDivElement>(null)
 	const [isOpened, _, closeModal] = useModal()
+	const [createGallery] = useCreateGalleryMutation()
+
+	const [state, setState] = useState({
+		name: "",
+		password: "",
+		client_message: "",
+		comment: "",
+	})
+
+	const setName = (newName: string) => {
+		setState({...state, name: newName})
+	}
+
+	const setPassword = (newPassword: string) => {
+		setState({...state, password: newPassword})
+	}
+
+	const setClientMessage = (newClientMessage: string) => {
+		setState({...state, client_message: newClientMessage})
+	}
+	
+	const setComment = (newComment: string) => {
+		setState({...state, comment: newComment})
+	}
+
+	const createGalleryAction = async () => {
+		await createGallery({name: state.name, password: state.password, client_message: state.client_message, comment: state.comment}).unwrap()
+		closeModal()
+	}
 
 	useEffect(() => {
 		if (isOpened) {
@@ -41,6 +74,8 @@ export default function AddGalleryModal() {
 								type="text"
 								className={classes.form_input}
 								name="username"
+								value={state.name}
+								onInput={(e) => setName(e.target.value)}
 								required
 							/>
 						</div>
@@ -50,6 +85,8 @@ export default function AddGalleryModal() {
 								type="text"
 								className={classes.form_input}
 								name="username"
+								value={state.password}
+								onInput={(e) => setPassword(e.target.value)}
 								required
 							/>
 						</div>
@@ -59,7 +96,7 @@ export default function AddGalleryModal() {
 							Сообщение для клиента:
 						</div>
 						<div className={classes.form_textarea}>
-							<textarea/>
+							<textarea value={state.client_message} onInput={(e) => setClientMessage(e.target.value)}></textarea>
 						</div>
 					</div>
 					<div className={classes.form_item}>
@@ -72,11 +109,11 @@ export default function AddGalleryModal() {
 							</div>
 						</div>
 						<div className={classes.form_textarea}>
-							<textarea/>
+							<textarea value={state.comment} onInput={(e) => setComment(e.target.value)}></textarea>
 						</div>
 					</div>
 				</div>
-				<CreateButton/>
+				<CreateButton onClick={createGalleryAction}/>
 			</div>
 		</div>
 	)

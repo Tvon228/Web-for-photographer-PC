@@ -1,4 +1,7 @@
 export type Gallery = {
-    id: number
-    status: boolean
+    id?: number
+    name: string
+    password: string
+    client_message: string
+    comment: string
 }

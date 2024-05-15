@@ -1,21 +1,8 @@
 import { Gallery } from "@/types/entity.types"
 import classes from "./List.module.sass"
 import GalleryCard from "../cards/GalleryCard"
+import { useGetGalleriesQuery } from "@/src/api"
 
-const mockGalleries: Gallery[] = [
-    {
-        id: 1,
-        status: true
-    },
-    {
-        id: 2,
-        status: false
-    },
-    {
-        id: 3,
-        status: true
-    }
-]
 
 function renderGalleries(list: Gallery[]) {
     return list.map(gallery => {
@@ -24,9 +11,19 @@ function renderGalleries(list: Gallery[]) {
 }
 
 export default function GalleryList() {
+    const {data: response, isLoading} = useGetGalleriesQuery()
+
+    if (isLoading || !response) {
+        return (
+            <div className={classes.container}>
+                pusto
+            </div>
+        )
+    }
+
     return (
         <div className={classes.container}>
-            { renderGalleries(mockGalleries) }
+            { renderGalleries(response.data) }
         </div>
     )
 }

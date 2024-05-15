@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit"
-import type { PayloadAction } from "@reduxjs/toolkit"
 
 export interface IAuthState {
   opened: boolean
@@ -17,7 +16,7 @@ const slice = createSlice({
       state.opened = true
     },
     closeModal: (state) => {
-      state.opened = false
+     state.opened = false
     }
   }
 })
