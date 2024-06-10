@@ -4,13 +4,21 @@ import deleteIcon from "@/public/icons/delete.png"
 
 import Image from "next/image"
 
+import { useState } from "react"
 import { Gallery } from "@/types/entity.types"
 import { useDispatch, useSelector } from "react-redux"
 import { DeleteCards } from "@/src/slice/cards"
+import Menu from "../menu/menu"
 
 export default function GalleryCard({ gallery }: { gallery: Gallery }) {
 
-	
+	const [isOpen, setIsOpen] = useState(false);
+
+	const toggle = () => {
+		setIsOpen(!isOpen);
+	};
+
+
 	const card = useSelector((state: any) => state.cards)
 
 	console.log(card)
@@ -20,7 +28,6 @@ export default function GalleryCard({ gallery }: { gallery: Gallery }) {
 		dispatch(DeleteCards(cardId))
 	}
 
-	
 
 	return (
 		<div className={classes.container}>
@@ -46,11 +53,19 @@ export default function GalleryCard({ gallery }: { gallery: Gallery }) {
 				</div>
 			</div>
 			<div className={classes.controlWrapper}>
-				<Image
-					src={editIcon}
-					alt="Edit"
-					className={classes.controlIcon}
-				/>
+				<div className={classes.withmenu}>
+					<div className={classes.edit_form}>
+						<Image
+							src={editIcon}
+							alt="Edit"
+							className={classes.controlIcon}
+							onClick={toggle}
+						/>
+					</div>
+					<div className={classes.menu}>
+						{isOpen && <Menu/>}
+					</div>
+				</div>
 				<Image
 					src={deleteIcon}
 					alt="Delete"

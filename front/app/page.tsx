@@ -61,7 +61,6 @@ export default function Home() {
 					value={state.password}
 					update={setPassword}
 				/>
-
 				<button
 					type="submit"
 					className={classes.btn}

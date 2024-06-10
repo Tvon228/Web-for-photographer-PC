@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 
 import modal from "./slice/modal";
+import menu from "./slice/menu";
 import cardsSlice from "./slice/cards";
 import { api } from "./api";
 
+
 export const store = configureStore({
   reducer: { 
-    modal, 
+    modal,
     cards: cardsSlice,
     [api.reducerPath]: api.reducer
   },
