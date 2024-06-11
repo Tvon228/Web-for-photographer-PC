@@ -4,7 +4,8 @@ import deleteIcon from "@/public/icons/delete.png"
 
 import Image from "next/image"
 
-import { useState } from "react"
+import { useRouter } from "next/router"
+import { useState, useEffect } from "react"
 import { Gallery } from "@/types/entity.types"
 import { useDispatch, useSelector } from "react-redux"
 import { DeleteCards } from "@/src/slice/cards"
@@ -12,12 +13,33 @@ import Menu from "../menu/menu"
 
 export default function GalleryCard({ gallery }: { gallery: Gallery }) {
 
+	const router = useRouter()
+
+	const edit = () => {
+		router.push("../app/edit/edit.tsx")
+	}
+
 	const [isOpen, setIsOpen] = useState(false);
+
+	const closeMenu = () => {
+		setIsOpen(false)
+	}
+	
+	useEffect(() => {
+		if (isOpen)
+			setTimeout(() => {
+				window.addEventListener("click", closeMenu)
+			}, 50)
+		else 
+			window.removeEventListener("click", closeMenu)
+		return () => {
+			window.removeEventListener("click", closeMenu)
+		}
+	}, [isOpen])
 
 	const toggle = () => {
 		setIsOpen(!isOpen);
 	};
-
 
 	const card = useSelector((state: any) => state.cards)
 
@@ -62,8 +84,8 @@ export default function GalleryCard({ gallery }: { gallery: Gallery }) {
 							onClick={toggle}
 						/>
 					</div>
-					<div className={classes.menu}>
-						{isOpen && <Menu/>}
+					<div className={classes.menu + " " + (!isOpen && classes.menu_closed)}>
+						<Menu/>
 					</div>
 				</div>
 				<Image

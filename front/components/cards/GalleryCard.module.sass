@@ -45,10 +45,14 @@
 
 .withmenu 
     position: relative
-    
 
 .menu
     right: 0
     position: absolute
+    opacity: 1
     z-index: 1
-        
+    transition: 50ms ease-out
+
+.menu_closed
+    opacity: 0
+    z-index: -1
