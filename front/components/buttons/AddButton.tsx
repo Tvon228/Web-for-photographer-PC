@@ -7,7 +7,6 @@ export default function AddButton() {
 	
 	const [_, openModal] = useModal()
 
-
 	return (
 		<button onClick={openModal} className={classes.addButton}>
 			Добавить галерею
