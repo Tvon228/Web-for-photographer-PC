@@ -1,15 +1,12 @@
 import classes from "./withicon.module.sass"
+import editIcon from "@/public/icons/edit.png"
 
 import { useState, useEffect, useRef } from "react"
 
-import editIcon from "@/public/icons/edit.png"
-import deleteIcon from "@/public/icons/delete.png"
-
 import Image from "next/image"
-
 import Menu from "../menu"
 
-export default function Withicon() {
+export default function Withicon( ) {
 
     const containerRef = useRef<HTMLDivElement>(null)
 
@@ -46,8 +43,7 @@ export default function Withicon() {
 	}, [!isOpen])	
 
     return (
-        <div className={classes.controlWrapper} ref={containerRef}>
-				<div className={classes.withmenu}>
+			<div className={classes.withmenu} ref={containerRef}>
 					<div className={classes.edit_form}>
 						<Image
 							src={editIcon}
@@ -60,11 +56,5 @@ export default function Withicon() {
 						<Menu/>
 					</div>
 				</div>
-				<Image
-					src={deleteIcon}
-					alt="Delete"
-					className={classes.controlIcon}
-				/>
-			</div>
     )
 }

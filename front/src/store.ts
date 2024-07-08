@@ -1,14 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 
+import addphoto from "./slice/addphoto";
 import modal from "./slice/modal";
-import menu from "./slice/menu";
 import cardsSlice from "./slice/cards";
 import { api } from "./api";
 
 
 export const store = configureStore({
   reducer: { 
+    addphoto,
     modal,
     cards: cardsSlice,
     [api.reducerPath]: api.reducer

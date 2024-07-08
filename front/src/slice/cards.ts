@@ -1,23 +1,24 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: any = [ 
-    {id: 1, title: "number"}
-]
+interface Card {
+    id: string; 
+    name: string;
+}
+
+const initialState: Card[] = [];
 
 const cardsSlice = createSlice({
-	name: "cards",
+    name: "cards",
     initialState,
-	reducers: {
-        AddCards: (state, action: PayloadAction<any>) => {
-            const {id, title} = action.payload
-            state.push ({id, title}) 
+    reducers: {
+        addCard: (state, action: PayloadAction<Card>) => {
+            state.push(action.payload);
         },
-        DeleteCards: (state, action: PayloadAction<any>) => {
-            const cardId = action.payload
-            return state.filter((card: any) => card.id !== cardId)
+        deleteCard: (state, action: PayloadAction<string>) => {
+            return state.filter(card => card.id !== action.payload);
         }
-	}
-})
+    }
+});
 
-export const {AddCards, DeleteCards} = cardsSlice.actions
-export default cardsSlice.reducer
+export const { addCard, deleteCard } = cardsSlice.actions;
+export default cardsSlice.reducer;

@@ -10,7 +10,6 @@ import { useEffect, useRef, useState } from "react"
 import { useCreateGalleryMutation } from "@/src/api"
 
 
-
 export default function AddGalleryModal() {
 	const containerRef = useRef<HTMLDivElement>(null)
 	const [isOpened, _, closeModal] = useModal()
@@ -22,7 +21,7 @@ export default function AddGalleryModal() {
 		client_message: "",
 		comment: "",
 	})
-
+	
 	const setName = (newName: string) => {
 		setState({...state, name: newName})
 	}

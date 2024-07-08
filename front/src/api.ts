@@ -18,10 +18,18 @@ export const api = createApi({
                 method: "POST"
             }),
             invalidatesTags: [{type: "Gallery", id: "ALL"}]
-        })
+        }),
+        deleteGallery: builder.mutation<ApiResponse<void>, number>({
+            query: (gallery: number) => ({
+                url: `/galleries`,
+                method: "DELETE"
+            }),
+            invalidatesTags: [{type: "Gallery", id: "ALL"}]
+        }),
     })
 })
 export const {
     useGetGalleriesQuery,
-    useCreateGalleryMutation
+    useCreateGalleryMutation,
+    useDeleteGalleryMutation
 } = api

@@ -1,14 +1,14 @@
 import classes from "./GalleryCard.module.sass"
 
 import { Gallery } from "@/types/entity.types"
-import { useSelector } from "react-redux"
+
 import Withicon from "../menu/withicon/withicon";
+import Image from "next/image"
+import deleteIcon from "@/public/icons/delete.png"
+
 
 export default function GalleryCard({ gallery }: { gallery: Gallery }) {
 
-	const card = useSelector((state: any) => state.cards)
-
-	console.log(card)
 
 	return (
 		<div className={classes.container}>
@@ -24,16 +24,16 @@ export default function GalleryCard({ gallery }: { gallery: Gallery }) {
 				</div>
 				<div className={classes.infoItem}>
 					<span>Статус галереи</span>
-					<span
-						className={
-							gallery.status ? classes.active : classes.inactive
-						}
-					>
-						{gallery.status ? "Активна" : "Неактивна"}
-					</span>
 				</div>
 			</div>
-			<Withicon/>
+				<div className={classes.controlWrapper}>
+					<Withicon/>
+					<Image
+						src={deleteIcon}
+						alt="Delete"
+						className={classes.controlIcon}
+					/>
+				</div>
 		</div>
 	)
 }

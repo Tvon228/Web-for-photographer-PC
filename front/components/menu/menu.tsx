@@ -7,43 +7,51 @@ import PriceIcon from "@/public/icons/price.png"
 import useModal from "@/hooks/useModal.hook"
 import classes from "./menu.module.sass"
 import Image from "next/image"
+import useAddPhotoModal from "@/hooks/useAddPhoto.hook"
 
 export default function Menu() {
+	const [, openModal] = useModal()
+	const [_, openAddPhotoModal] = useAddPhotoModal()
 
-    const [_, openModal] = useModal()
 
-    return (
-        <div className={classes.container}>
-            <div className={classes.content}>
-                <div className={classes.form}>
-                    <div onClick={openModal}>
+	return (
+		<div className={classes.container}>
+			<div className={classes.content}>
+				<div className={classes.form}>
+					<div onClick={openModal} className={classes.form_item}>
+						<Image
+							src={SettingIcon}
+							alt="Edit"
+							className={classes.controlIcon}
+						/>
+						<div className={classes.form_label}>
+							Редактирование галереи
+						</div>
+					</div>
+                    <div onClick={openAddPhotoModal}>
                         <div className={classes.form_item}>
-                                <Image
-                                    src={SettingIcon}
-                                    alt="Edit"
-                                    className={classes.controlIcon}
-                                />  
-                                <div className={classes.form_label}>Редактирование галереи</div>
-                        </div>
-                    </div>
-                    <div className={classes.form_item}>
-                        <Image
-                            src={ImageIcon}
-                            alt="Edit"
-                            className={classes.controlIcon}
-                        />  
-                    <div className={classes.form_label}>Фотографии галереи</div>
-                    </div>
-                    <div className={classes.form_item}>
                             <Image
-                                src={PriceIcon}
+                                src={ImageIcon}
                                 alt="Edit"
                                 className={classes.controlIcon}
-                            />  
-                        <div className={classes.form_label}>Редактирование цены</div>
+                            />
+                            <div className={classes.form_label}>
+                                Фотографии галереи
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    )
+					<div className={classes.form_item}>
+						<Image
+							src={PriceIcon}
+							alt="Edit"
+							className={classes.controlIcon}
+						/>
+						<div className={classes.form_label}>
+							Редактирование цены
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	)
 }
