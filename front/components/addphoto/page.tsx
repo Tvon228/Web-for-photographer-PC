@@ -7,24 +7,28 @@ import Image from "next/image"
 import closeIcon from "@/public/icons/close.png"
 
 import { useEffect, useRef } from "react"
+import AddPhoto from "./secondmodal/addphoto"
+import SaveButton from "../buttons/saveButton/saveButton"
 
 export default function Edit() {
-	const containerRef = useRef<HTMLDivElement>(null)
+	const containersRef = useRef<HTMLDivElement>(null)
 	const [openAddPhotoModal, _, closeAddPhotoModal] = useAddPhotoModal()
 
 	useEffect(() => {
-		if (openAddPhotoModal) {
-			containerRef.current.style.removeProperty("z-index")
-		} else {
-			setTimeout(() => {
-				containerRef.current.style.zIndex = "-1"
-			}, 300)
+		if (containersRef.current) {
+			if (openAddPhotoModal) {
+				containersRef.current.style.removeProperty("z-index")
+			} else {
+				setTimeout(() => {
+					containersRef.current.style.zIndex = "-1"
+				}, 300)
+			}
 		}
 	}, [openAddPhotoModal])
 
 	return (
 		<div
-			ref={containerRef}
+			ref={containersRef}
 			className={
 				classes.container +
 				" " +
@@ -34,7 +38,7 @@ export default function Edit() {
 			<div className={classes.content}>
 				<div className={classes.main}>
 					<div className={classes.label}>Загрузка фотографий</div>
-					<div ref={containerRef}>
+					<div>
 						<Image
 							src={closeIcon}
 							alt="close"
@@ -43,9 +47,18 @@ export default function Edit() {
 						/>
 					</div>
 					<div className={classes.form}>
-						<div className={classes.form_label}>Вручную</div>
-						<div className={classes.form_label}>Zip-архив</div>
+						<div className={classes.withmodal}>
+							<div className={classes.form_label}>Вручную</div>
+							<AddPhoto />
+						</div>
+						<div className={classes.withmodal}>
+							<div className={classes.form_label}>Zip-архив</div>
+							<AddPhoto />
+						</div>
 					</div>
+				</div>
+				<div className={classes.save_btn}>
+					<SaveButton />
 				</div>
 			</div>
 		</div>

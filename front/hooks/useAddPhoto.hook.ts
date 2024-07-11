@@ -2,10 +2,10 @@ import { closeAddPhotoModal, openAddPhotoModal } from "@/src/slice/addphoto"
 import { RootState } from "@/src/store"
 import { useDispatch, useSelector } from "react-redux"
 
-export default function useAddPhotoModal(): [boolean, () => void, () => void] {
+export default function useAddPhotoModal(): [boolean, () => void, () => void]{
 
     const dispatch = useDispatch()
-    const modal = useSelector((state: RootState) => state.modal)
+    const addphotoOpened = useSelector((state: RootState) => state.addphoto)
 
     const openAddPhotoModalAction = () => {
         dispatch(openAddPhotoModal())
@@ -15,5 +15,5 @@ export default function useAddPhotoModal(): [boolean, () => void, () => void] {
         dispatch(closeAddPhotoModal())
     }
 
-    return [modal.opened, openAddPhotoModalAction, closeAddPhotoModalAction]
+    return [addphotoOpened.opened, openAddPhotoModalAction, closeAddPhotoModalAction]
 }

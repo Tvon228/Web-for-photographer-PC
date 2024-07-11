@@ -8,7 +8,7 @@ const initialState: IAuthState = {
 	opened: false,
 }
 
-const addphotoslice = createSlice({
+const addphotoSlice = createSlice({
 	name: "addphoto",
 	initialState,
 	reducers: {
@@ -21,5 +21,5 @@ const addphotoslice = createSlice({
 	},
 })
 
-export const { closeAddPhotoModal, openAddPhotoModal } = addphotoslice.actions
-export default addphotoslice.reducer
+export const { closeAddPhotoModal, openAddPhotoModal } = addphotoSlice.actions
+export default addphotoSlice.reducer

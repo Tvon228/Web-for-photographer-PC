@@ -4,7 +4,7 @@ import editIcon from "@/public/icons/edit.png"
 import { useState, useEffect, useRef } from "react"
 
 import Image from "next/image"
-import Menu from "../menu"
+import Menu from "../openmodal/menu"
 
 export default function Withicon( ) {
 
