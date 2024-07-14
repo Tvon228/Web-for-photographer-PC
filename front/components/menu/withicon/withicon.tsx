@@ -6,55 +6,58 @@ import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Menu from "../openmodal/menu"
 
-export default function Withicon( ) {
+export default function Withicon() {
+	const containerRef = useRef<HTMLDivElement>(null)
 
-    const containerRef = useRef<HTMLDivElement>(null)
-
-    const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(false)
 
 	const closeMenu = () => {
 		setIsOpen(false)
 	}
 
-    useEffect(() => {
+	useEffect(() => {
 		if (isOpen)
 			setTimeout(() => {
 				window.addEventListener("click", closeMenu)
 			}, 50)
-		else 
-			window.removeEventListener("click", closeMenu)
+		else window.removeEventListener("click", closeMenu)
 		return () => {
 			window.removeEventListener("click", closeMenu)
 		}
 	}, [isOpen])
 
 	const toggle = () => {
-		setIsOpen(!isOpen);
-	};
+		setIsOpen(!isOpen)
+	}
 
 	useEffect(() => {
-		if (!isOpen) {
+		if (isOpen) {
 			containerRef.current.style.removeProperty("z-index")
 		} else {
 			setTimeout(() => {
-				containerRef.current.style.zIndex = "1"
-			}, 5)
+				containerRef.current.style.zIndex = "-1"
+			}, 150)
 		}
-	}, [!isOpen])	
+	}, [isOpen])
 
-    return (
-			<div className={classes.withmenu} ref={containerRef}>
-					<div className={classes.edit_form}>
-						<Image
-							src={editIcon}
-							alt="Edit"
-							className={classes.controlIcon}
-							onClick={toggle}
-						/>
-					</div>
-					<div className={classes.menu + " " + (!isOpen && classes.menu_closed)}>
-						<Menu/>
-					</div>
-				</div>
-    )
+	return (
+		<div className={classes.withmenu}>
+			<div className={classes.edit_form}>
+				<Image
+					src={editIcon}
+					alt="Edit"
+					className={classes.controlIcon}
+					onClick={toggle}
+				/>
+			</div>
+			<div
+				ref={containerRef}
+				className={
+					classes.menu + " " + (!isOpen && classes.menu_closed)
+				}
+			>
+				<Menu />
+			</div>
+		</div>
+	)
 }

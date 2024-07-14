@@ -1,5 +1,5 @@
 "use client"
-import classes from "./add.module.sass"
+import classes from "./modal.module.sass"
 
 import Image from "next/image"
 import closeIcon from "@/public/icons/close.png"

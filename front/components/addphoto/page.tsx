@@ -48,12 +48,8 @@ export default function Edit() {
 					</div>
 					<div className={classes.form}>
 						<div className={classes.withmodal}>
+							<AddPhoto />
 							<div className={classes.form_label}>Вручную</div>
-							<AddPhoto />
-						</div>
-						<div className={classes.withmodal}>
-							<div className={classes.form_label}>Zip-архив</div>
-							<AddPhoto />
 						</div>
 					</div>
 				</div>
