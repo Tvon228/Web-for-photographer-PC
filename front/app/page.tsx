@@ -34,7 +34,6 @@ export default function Home() {
 
 	return (
 		<form>
-			
 			<div className={classes.wrapper}>
 				<div className={classes.selectorWrapper}>
 					<div className={classes.selectorItemActive}>
@@ -61,10 +60,7 @@ export default function Home() {
 					value={state.password}
 					update={setPassword}
 				/>
-				<button
-					type="submit"
-					className={classes.btn}
-				>
+				<button type="submit" className={classes.btn}>
 					Войти
 				</button>
 			</div>

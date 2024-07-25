@@ -1,5 +1,4 @@
-import ReduxProvider from "@/components/modalblock/redux-provider"
-
+import ReduxProvider from "@/components/modalblock/redux-provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../styles/globals.sass";
@@ -19,9 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider>
-          <>
-            {children}
-          </>	
+          {children}
         </ReduxProvider>
       </body>
     </html>

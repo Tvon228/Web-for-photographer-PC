@@ -12,6 +12,11 @@ export default function AddPhoto() {
 		files.forEach((file) => console.log("Выбранный файл:", file))
 	}
 
+	const handleFileSelect = () => {
+		const files = Array.from(fileInputRef.current.files)
+		files.forEach((file) => console.log("Выбранный файл:", file))
+	}
+
 	return (
 		<div className={classes.container}>
 			<div className={classes.main}>
@@ -19,23 +24,16 @@ export default function AddPhoto() {
 					className={classes.form_input}
 					onDrop={handleDrop}
 					onDragOver={(e) => e.preventDefault()}
+					onClick={() => fileInputRef.current.click()}
 				>
-					<label htmlFor="fileInput">
-						Нажмите или перетащите файлы:
-					</label>
+					<label>Нажмите или перетащите файлы:</label>
 					<input
 						type="file"
 						style={{ display: "none" }}
-						onChange={() => {
-							const files = Array.from(fileInputRef.current.files)
-							files.forEach((file) =>
-								console.log("Выбранный файл:", file)
-							)
-						}}
+						onChange={handleFileSelect}
 						accept=".jpg, .jpeg, .png, .gif, .bmp, .svg, .raw, .cr2, .nef, .dng"
 						ref={fileInputRef}
 						multiple
-						id="fileInput"
 					/>
 				</div>
 			</div>

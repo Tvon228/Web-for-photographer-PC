@@ -1,5 +1,7 @@
 .input_box
     width: 100%
+    display: flex
+
     position: relative
     height: 50px
     background: #FFFFFF
@@ -9,9 +11,9 @@
         @extend .input_box
 
         label
-            top: -10px !important
+            top: -20px !important
             color: #656464
-            background-color: #FFFFFF
+            background-color: #ffffff
 
     input
         width: 100%
@@ -29,13 +31,13 @@
     input:focus + label
         top: -10px
         color: #656464
-        background-color: #FFFFFF
+        background-color: #ffffff
 
     label
         position: absolute
-        top: 17px
+        top: 15px
         left: 30px
-        font-size: 16px
+        font-size: 17px
         padding: 0px 5px
         color: #8e8e8e
         transition: 0.3s
