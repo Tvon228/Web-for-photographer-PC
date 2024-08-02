@@ -1,4 +1,4 @@
-package database
+package models
 
 type Gallery struct {
 	ID 				int 	`gorm:"autoIncrement;primary" json:"id"`
@@ -7,4 +7,3 @@ type Gallery struct {
 	Client_message 	string	`json:"client_message"`
 	Comment 		string	`json:"comment"`
 }
-

@@ -1,24 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 export interface IAuthState {
-  opened: boolean
+	opened: boolean
 }
 
 const initialState: IAuthState = {
-  opened: false
+	opened: false,
 }
 
 const modalSlice = createSlice({
-  name: "modal",
-  initialState,
-  reducers: {
-    openModal: (state) => {
-      state.opened = true
-    },
-    closeModal: (state) => {
-     state.opened = false
-    }
-  }
+	name: "modal",
+	initialState,
+	reducers: {
+		openModal: (state) => {
+			state.opened = true
+		},
+		closeModal: (state) => {
+			state.opened = false
+		},
+	},
 })
 
 export const { openModal, closeModal } = modalSlice.actions

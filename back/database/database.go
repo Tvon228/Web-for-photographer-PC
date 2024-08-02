@@ -3,30 +3,29 @@ package database
 import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"github.com/try_2_backend/models"
+	"github.com/try_2_backend/config"
 )
 
 type DB struct {
-	db *gorm.DB
+	*gorm.DB
 }
 
-func New() DB {
-	dns := "postgres://postgres:dflbvgf04@localhost:5432/cheese"
-	
+func New() (*DB, error) {
+	dns := config.GetDatabaseDSN()
 	db, err := gorm.Open(postgres.Open(dns), &gorm.Config{})
-
 	if err != nil {
-		panic(err.Error())
+		return nil, err
 	}
 
-	db.AutoMigrate(&Gallery{})
+	// Автоматическое создание таблиц
+	db.AutoMigrate(&models.Photographer{}, &models.Gallery{})
 
-	return DB{db: db}
+	return &DB{DB: db}, nil
 }
 
-func (db *DB) GetAllGalleries() ([]Gallery, error) {
-	galleries := make([]Gallery, 0)
-
-	result := db.db.Find(&galleries)
-
+func (db *DB) GetAllGalleries() ([]models.Gallery, error) {
+	var galleries []models.Gallery
+	result := db.Find(&galleries)
 	return galleries, result.Error
 }
