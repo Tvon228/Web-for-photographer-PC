@@ -1,7 +1,6 @@
 package main
 
 import (
-	"net/http"
 	"log"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -29,22 +28,7 @@ func main() {
 	}))
 
 	routes.RegisterAuthRoutes(app, utils.Db)
-
-	app.GET("/galleries", func(ctx *gin.Context) {
-		items, err := dbInstance.GetAllGalleries()
-		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-				"result": false,
-				"error":  "database error",
-			})
-			return
-		}
-
-		ctx.JSON(http.StatusOK, gin.H{
-			"result": true,
-			"data":   items,
-		})
-	})
+	routes.RegisterGalleryRoutes(app, dbInstance)
 
 	app.Run("0.0.0.0:8000")
 }

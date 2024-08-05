@@ -9,7 +9,6 @@ import closeIcon from "@/public/icons/close.png"
 import { useEffect, useRef } from "react"
 import AddPhoto from "./secondmodal/addphoto"
 import SaveButton from "../buttons/saveButton/saveButton"
-import DownloadForm from "../downloadCards/downloadForm"
 
 export default function Edit() {
 	const containersRef = useRef<HTMLDivElement>(null)
@@ -48,14 +47,12 @@ export default function Edit() {
 						/>
 					</div>
 					<div className={classes.form}>
-						<DownloadForm/>
 						<div className={classes.withmodal}>
 							<AddPhoto />	
 						</div>
 					</div>
 				</div>
 				<div className={classes.save_btn}>
-					<SaveButton />
 				</div>
 			</div>
 		</div>

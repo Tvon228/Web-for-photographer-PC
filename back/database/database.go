@@ -24,8 +24,12 @@ func New() (*DB, error) {
 	return &DB{DB: db}, nil
 }
 
-func (db *DB) GetAllGalleries() ([]models.Gallery, error) {
-	var galleries []models.Gallery
-	result := db.Find(&galleries)
-	return galleries, result.Error
+func (db *DB) CreateGallery(gallery *models.Gallery) error {
+	result := db.Create(gallery)
+	return result.Error
+}
+
+func (db *DB) DeleteGallery(id string) error {
+	result := db.Delete(&models.Gallery{}, id)
+	return result.Error
 }

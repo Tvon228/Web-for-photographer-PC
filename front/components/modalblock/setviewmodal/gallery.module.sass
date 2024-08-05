@@ -1,18 +1,53 @@
 .container
     display: flex
     flex-direction: column
-    align-items: center
-    row-gap: 30px
+    row-gap: 20px
+    padding: 0px 250px
 
 .header
     width: 100%
-    background: #ffffffb2
-    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px
     display: flex
     align-items: center
     justify-content: center
-    padding: 24px
-
-    color: #121212c5
+    margin-top: 40px
     font-size: 2em
     font-weight: 600
+
+.search_bar
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+.search
+    width: 27%
+    display: flex
+    position: relative
+    justify-content: center
+    
+    input
+        display: flex
+        outline: none
+        border: 2px solid #D9D9D9
+        padding: 0px 16px
+        border-radius: 12px
+        height: 45px
+        width: 100%
+        font-size: 1.1em
+    
+    button
+        position: absolute
+        right: 10px 
+        top: 50% 
+        transform: translateY(-50%) 
+        background: none 
+        border: none
+    
+.controlIcon
+    width: 22px
+    height: 22px
+
+.header_button
+    display: flex
+    gap: 20px
+
+    

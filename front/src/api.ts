@@ -30,12 +30,11 @@ export const api = createApi({
             }),
             invalidatesTags: [{type: "Gallery", id: "ALL"}]
         }),
-        deleteGallery: builder.mutation<ApiResponse<void>, number>({
-            query: (gallery: number) => ({
-                url: `/galleries`,
-                method: "DELETE"
+        deleteGallery: builder.mutation<void, number>({
+            query: (id) => ({
+                url: `/galleries/${id}`,
+                method: 'DELETE',
             }),
-            invalidatesTags: [{type: "Gallery", id: "ALL"}]
         }),
     })
 })

@@ -1,11 +1,15 @@
 import classes from "./saveButton.module.sass"
 
+interface ButtonProps {
+	onClick: () => void
+}
 
-export default function SaveButton() {
-	
+const Button: React.FC<ButtonProps> = ({ onClick }) => {
 	return (
-		<button className={classes.addButton}>
+		<button className={classes.addButton} onClick={onClick}>
 			Сохранить и выйти
 		</button>
 	)
 }
+
+export default Button

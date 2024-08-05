@@ -1,19 +1,18 @@
-"use client"
 import classes from "./modal.module.sass"
+
+import { useRef, useState, useEffect } from "react"
+import { useCreateGalleryMutation } from "@/src/api"
 
 import Image from "next/image"
 import closeIcon from "@/public/icons/close.png"
 import SaveButton from "@/components/buttons/saveButton/saveButton"
 
 import useModal from "@/hooks/useModal.hook"
-import { useEffect, useRef, useState } from "react"
-import { useCreateGalleryMutation } from "@/src/api"
+import toast from "react-hot-toast"
 
 export default function AddGalleryModal() {
 	const containerRef = useRef<HTMLDivElement>(null)
-	const [isOpened, _, closeModal] = useModal()
 	const [createGallery] = useCreateGalleryMutation()
-
 	const [state, setState] = useState({
 		name: "",
 		password: "",
@@ -21,43 +20,38 @@ export default function AddGalleryModal() {
 		comment: "",
 	})
 
-	const setName = (newName: string) => {
-		setState({ ...state, name: newName })
-	}
+	const [isOpened, _, closeModal] = useModal()
 
-	const setPassword = (newPassword: string) => {
+	const setName = (newName: string) => setState({ ...state, name: newName })
+	const setPassword = (newPassword: string) =>
 		setState({ ...state, password: newPassword })
-	}
-
-	const setClientMessage = (newClientMessage: string) => {
+	const setClientMessage = (newClientMessage: string) =>
 		setState({ ...state, client_message: newClientMessage })
-	}
-
-	const setComment = (newComment: string) => {
+	const setComment = (newComment: string) =>
 		setState({ ...state, comment: newComment })
-	}
 
 	const saveGalleryData = async () => {
+		if (
+			!state.name ||
+			!state.password ||
+			!state.client_message ||
+			!state.comment
+		) {
+			toast.error("Пожалуйста, заполните все поля!")
+			return
+		}
 		try {
-			await createGallery({
-				name: state.name,
-				password: state.password,
-				client_message: state.client_message,
-				comment: state.comment,
-			}).unwrap()
+			await createGallery(state).unwrap()
+			toast.success("Галерея успешно создана!")
 			closeModal()
 		} catch (error) {
-			console.error("Ошибка при сохранении данных:", error)
+			toast.error("Ошибка при сохранении данных!")
 		}
 	}
 
 	useEffect(() => {
-		if (isOpened) {
-			containerRef.current.style.removeProperty("z-index")
-		} else {
-			setTimeout(() => {
-				containerRef.current.style.zIndex = "-1"
-			}, 300)
+		if (containerRef.current) {
+			containerRef.current.style.zIndex = isOpened ? "1" : "-1"
 		}
 	}, [isOpened])
 
@@ -69,14 +63,12 @@ export default function AddGalleryModal() {
 			}
 		>
 			<div className={classes.content}>
-				<div>
-					<Image
-						src={closeIcon}
-						alt="close"
-						className={classes.controlIcon}
-						onClick={closeModal}
-					/>
-				</div>
+				<Image
+					src={closeIcon}
+					alt="close"
+					className={classes.controlIcon}
+					onClick={closeModal}
+				/>
 				<div className={classes.header}>Создание галереи</div>
 				<div className={classes.form}>
 					<div className={classes.form_item}>
@@ -122,10 +114,7 @@ export default function AddGalleryModal() {
 					</div>
 					<div className={classes.form_item}>
 						<div className={classes.form_label}>
-							<div>Комментарий для себя:</div>
-							<div className={classes.comment}>
-								(будет виден в личном кабинете)
-							</div>
+							Комментарий для себя:
 						</div>
 						<div className={classes.form_textarea}>
 							<textarea
@@ -135,7 +124,7 @@ export default function AddGalleryModal() {
 						</div>
 					</div>
 				</div>
-				<SaveButton/>
+				<SaveButton onClick={saveGalleryData} />
 			</div>
 		</div>
 	)
