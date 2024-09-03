@@ -1,4 +1,4 @@
-import classes from "./modal.module.sass"
+import classes from "./editModal.module.sass"
 
 import { useRef, useState, useEffect } from "react"
 import { useCreateGalleryMutation } from "@/src/api"
@@ -6,8 +6,8 @@ import { useCreateGalleryMutation } from "@/src/api"
 import SaveButton from "@/components/buttons/saveButton/saveButton"
 import CloseButton from "@/components/buttons/closeButton/closeButton"
 
-import useModal from "@/hooks/useModal.hook"
 import toast from "react-hot-toast"
+import useEditModal from "@/hooks/useEditModal.hook"
 
 
 export default function AddGalleryModal() {
@@ -20,7 +20,7 @@ export default function AddGalleryModal() {
 		comment: "",
 	})
 
-	const [isOpened, _, closeModal] = useModal()
+	const [isOpened, _, closeEditModal] = useEditModal()
 
 	const setName = (newName: string) => setState({ ...state, name: newName })
 	const setPassword = (newPassword: string) =>
@@ -43,7 +43,7 @@ export default function AddGalleryModal() {
 		try {
 			await createGallery(state).unwrap()
 			toast.success("Галерея успешно создана!")
-			closeModal()
+			closeEditModal()
 		} catch (error) {
 			toast.error("Ошибка при сохранении данных!")
 		}
@@ -70,7 +70,7 @@ export default function AddGalleryModal() {
 		>
 			<div className={classes.content}>
 				<div className={classes.header}>
-					<h1>Создание галереи</h1>
+					<h1>Редактирование галереи</h1>
 				</div>
 				<div className={classes.form}>
 					<div className={classes.form_item}>
@@ -128,7 +128,7 @@ export default function AddGalleryModal() {
 				</div>
 				<div className={classes.buttons}>
 					<SaveButton onClick={saveGalleryData} />
-					<CloseButton onClick={closeModal}/>
+					<CloseButton onClick={closeEditModal}/>
 				</div>
 			</div>
 		</div>

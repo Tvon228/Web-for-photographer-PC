@@ -10,6 +10,7 @@ import movephotoIcon from "@/public/icons/movephoto.png"
 import deleteIcon from "@/public/icons/delete.png"
 
 import toast from "react-hot-toast" 
+import useEditModal from "@/hooks/useEditModal.hook"
 
 interface GalleryCardProps {
 	gallery: Gallery
@@ -18,6 +19,7 @@ interface GalleryCardProps {
 
 export default function GalleryCard({ gallery, onDelete }: GalleryCardProps) {
 	const [deleteGallery] = useDeleteGalleryMutation()
+	const [_, openEditModal] = useEditModal()
 
 	const handleDelete = async () => {
 		if (gallery.id === undefined) {
@@ -50,11 +52,6 @@ export default function GalleryCard({ gallery, onDelete }: GalleryCardProps) {
 							<span>Готово</span>
 						</div>
 					</div>
-					<div className={classes.name_school}>
-						Муниципальное автономное бюджетное общеобразовательное
-						учреждение “Гимназия №9” муниципального образования
-						городской округ Симферополь республики Крым
-					</div>
 					<div className={classes.buttons}>
 						<button className={classes.edit_photos}>
 							<Image
@@ -64,7 +61,7 @@ export default function GalleryCard({ gallery, onDelete }: GalleryCardProps) {
 							/>
 							Перейти к фото
 						</button>
-						<button className={classes.redaction}>
+						<button onClick={openEditModal} className={classes.redaction}>
 							<Image
 								src={editIcon}
 								alt="edit"

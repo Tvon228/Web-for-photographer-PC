@@ -26,9 +26,10 @@ export default function GalleryList({ searchQuery }: { searchQuery: string }) {
 		return <div className={classes.container}>Загрузка...</div>
 	}
 
-	const filteredGalleries = response.data.filter((gallery) =>
-		gallery.name.toLowerCase().startsWith(searchQuery.toLowerCase())
-	)
+	const filteredGalleries = response.data.filter((gallery) => {
+		const words = gallery.name.toLowerCase().split(" ") 
+		return words.some((word) => word.startsWith(searchQuery.toLowerCase())) 
+	})
 
 	return (
 		<div className={classes.container}>
