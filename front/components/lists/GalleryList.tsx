@@ -13,18 +13,17 @@ function renderGalleries(list: Gallery[], onDelete: (id: number) => void) {
 export default function GalleryList({ searchQuery }: { searchQuery: string }) {
 	const { data: response, isLoading } = useGetGalleriesQuery()
 	const [deleteGallery] = useDeleteGalleryMutation()
-	const [galleries, setGalleries] = useState<Gallery[]>([]) // Локальное состояние для галерей
+	const [galleries, setGalleries] = useState<Gallery[]>([]) 
 
 	useEffect(() => {
 		if (response) {
-			setGalleries(response.data) // Устанавливаем галереи из ответа
+			setGalleries(response.data) 
 		}
 	}, [response])
 
 	const handleDelete = async (id: number) => {
 		try {
 			await deleteGallery(id).unwrap()
-			// Обновляем локальное состояние, удаляя галерею
 			setGalleries((prevGalleries) =>
 				prevGalleries.filter((gallery) => gallery.id !== id)
 			)
@@ -43,7 +42,7 @@ export default function GalleryList({ searchQuery }: { searchQuery: string }) {
 	})
 
 	// Сортировка по id или по имени
-	const sortedGalleries = filteredGalleries.sort((a, b) => a.id - b.id) // Сортировка по id
+	const sortedGalleries = filteredGalleries.sort((a, b) => a.id - b.id) 
 
 	return (
 		<div className={classes.container}>

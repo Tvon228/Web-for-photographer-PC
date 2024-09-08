@@ -9,7 +9,7 @@ import searchIcon from "@/public/icons/search.png"
 
 import AddButton from "@/components/buttons/AddButton"
 import GalleryList from "@/components/lists/GalleryList"
-import DeletelistButton from "@/components/buttons/deleteAllButton/deleteButton"
+
 
 export default function Gallery() {
 	const [searchQuery, setSearchQuery] = useState("")
@@ -38,7 +38,6 @@ export default function Gallery() {
 					</button>
 				</div>
 				<div className={classes.header_button}>
-					<DeletelistButton />
 					<AddButton />
 				</div>
 			</div>
