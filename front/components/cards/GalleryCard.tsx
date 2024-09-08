@@ -1,5 +1,8 @@
+"use client"
+
 import classes from "./GalleryCard.module.sass"
 
+import { useRouter } from "next/navigation"
 import { Gallery } from "@/types/entity.types"
 import { useDeleteGalleryMutation } from "@/src/api"
 
@@ -18,8 +21,18 @@ interface GalleryCardProps {
 }
 
 export default function GalleryCard({ gallery, onDelete }: GalleryCardProps) {
+	const router = useRouter()
+
 	const [deleteGallery] = useDeleteGalleryMutation()
 	const [_, openEditModal] = useEditModal()
+
+	const toPhotos = () => {
+        router.push("/photos")
+    }
+
+	const handleEdit = () => {
+		openEditModal(gallery)
+	}
 
 	const handleDelete = async () => {
 		if (gallery.id === undefined) {
@@ -53,7 +66,7 @@ export default function GalleryCard({ gallery, onDelete }: GalleryCardProps) {
 						</div>
 					</div>
 					<div className={classes.buttons}>
-						<button className={classes.edit_photos}>
+						<button onClick={toPhotos} className={classes.edit_photos}>
 							<Image
 								src={movephotoIcon}
 								alt="move photo"
@@ -61,7 +74,7 @@ export default function GalleryCard({ gallery, onDelete }: GalleryCardProps) {
 							/>
 							Перейти к фото
 						</button>
-						<button onClick={openEditModal} className={classes.redaction}>
+						<button onClick={handleEdit} className={classes.redaction}>
 							<Image
 								src={editIcon}
 								alt="edit"
