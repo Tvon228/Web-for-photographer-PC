@@ -9,9 +9,9 @@ import { useUploadPhotoMutation } from "@/src/api"
 import CloseButton from "../buttons/closeButton/closeButton"
 import SaveButton from "@/components/buttons/saveButton/saveButton"
 import useFormModal from "@/hooks/FormModal/useFormModal.hook"
-import PhotoSide from "./photoSide/photoSide"
-import FileSide from "./fileSide/fileSide"
-import { usePhoto } from "@/hooks/FormModal/usePhoto.hook"
+import PhotoSide from "./photopage/photoPage"
+import FileSide from "./filePage/filePage"
+import { cssIf } from "@/utils/utils"
 
 interface FormModalProps {
 	galleryId: number
@@ -19,26 +19,14 @@ interface FormModalProps {
 
 export default function FormModal({ galleryId }: FormModalProps) {
 	const containerRef = useRef<HTMLDivElement>(null)
-	const [isOpened, _, closeFormModal] = useFormModal()
+	const {opened, closeFormModalAction} = useFormModal()
 	const [activeTab, setActiveTab] = useState("photo")
-	const { fileNames, selectedFiles, clearFiles} = usePhoto()
 	const [uploadPhoto] = useUploadPhotoMutation()
-
-	// victor updates
-	const [selectedPhoto, setSelectedPhoto] = useState<File[]>([])
-
-	const setPhotoAction = (files: File[]) => {
-		setSelectedPhoto(files)
-	}
-	// end victor updates
-
-	const handleTabChange = (tab: string) => {
-		setActiveTab(tab)
-	}
+	const [selectedPhotoList, setSelectedPhotoList] = useState<File[]>([])
 
 	useEffect(() => {
 		if (containerRef.current) {
-			if (isOpened) {
+			if (opened) {
 				containerRef.current.style.removeProperty("z-index")
 			} else {
 				setTimeout(() => {
@@ -47,72 +35,73 @@ export default function FormModal({ galleryId }: FormModalProps) {
 				}, 200)
 			}
 		}
-	}, [isOpened])
+	}, [opened])
 
-	const handleUpload = async () => {
-		console.log("start upload, selected files ", selectedPhoto)
+	const uploadPhotoAction = async () => {
 		try {
-			for (let i = 0; i < selectedPhoto.length; i++) {
-				const file = selectedPhoto[i]
-				//  (-_-)
-				await uploadPhoto({ galleryId, photo: file }).unwrap() // Загружаем каждое фото
+			for (let photo of selectedPhotoList) {
+				await uploadPhoto({ galleryId, photo }).unwrap()
 			}
-			clearFiles() // Очищаем список файлов после загрузки
-			closeFormModal() // Закрываем модал после загрузки
 			toast.success("Фото успешно загружены!")
 		} catch (error) {
 			toast.error("Ошибка при загрузке фото")
 		}
 	}
-
-	const handleSaveAndExit = () => {
-		if (selectedPhoto.length > 0) {
-			handleUpload() // Вызываем функцию загрузки
-		} else {
-			closeFormModal() // Просто закрываем, если нет файлов
+	
+	const saveAction = async () => {
+		if (selectedPhotoList.length > 0) {
+			await uploadPhotoAction()
 		}
+
+		closeModalAction()
 	}
+
+	const closeModalAction = () => {
+		setTimeout(() => {
+			setSelectedPhotoList([])
+		}, 200)
+		closeFormModalAction()
+	}
+
+	const isPhotoTab = activeTab == "photo"
+	const isArchiveTab = activeTab == "archive"
+	const isEmptyPhotoList = selectedPhotoList.length == 0
 
 	return (
 		<div
 			ref={containerRef}
-			className={`${classes.container} ${
-				!isOpened && classes.containerHidden
-			}`}
+			className={cssIf(opened, classes.container, classes.containerHidden)}
 		>
 			<div className={classes.content}>
 				<div className={classes.header}>
 					<span
-						className={
-							activeTab === "photo"
-								? classes.activeTab
-								: classes.inactiveTab
-						}
-						onClick={() => handleTabChange("photo")}
+						className={cssIf(isPhotoTab, classes.activeTab, classes.inactiveTab)}
+						onClick={() => setActiveTab("photo")}
 					>
 						Фото
 					</span>
 					<span
-						className={
-							activeTab === "archive"
-								? classes.activeTab
-								: classes.inactiveTab
-						}
-						onClick={() => handleTabChange("archive")}
+						className={cssIf(isArchiveTab, classes.activeTab, classes.inactiveTab)}
+						onClick={() => setActiveTab("archive")}
 					>
 						Архив
 					</span>
 				</div>
 
 				<div className={classes.main}>
-					{activeTab === "photo" ? <PhotoSide photos={selectedPhoto} setPhotoAction={setPhotoAction} /> : <FileSide />}
+					{activeTab === "photo" 
+						? 
+						<PhotoSide opened={opened} photos={selectedPhotoList} setPhotoAction={setSelectedPhotoList} /> 
+						: 
+						<FileSide />
+					}
 				</div>
 				<div className={classes.buttons}>
 					<SaveButton
-						onClick={handleSaveAndExit}
-						disabled={selectedPhoto.length === 0}
+						onClick={saveAction}
+						disabled={isEmptyPhotoList}
 					/>
-					<CloseButton onClick={closeFormModal} />
+					<CloseButton onClick={closeModalAction} />
 				</div>
 			</div>
 		</div>

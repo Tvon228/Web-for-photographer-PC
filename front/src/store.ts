@@ -2,7 +2,6 @@ import { configureStore } from "@reduxjs/toolkit"
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux"
 
 import addphoto from "./slice/addphoto"
-import photoReducer from "./slice/photoSlice"
 import modalReducer from "./slice/modal"
 import cardsSlice from "./slice/cards"
 import editModal from "./slice/editModal"
@@ -16,7 +15,6 @@ export const store = configureStore({
 		addphoto: addphoto,
 		editModal: editModal,
 		formModal: formModal,
-		photo: photoReducer,
 		modal: modalReducer,
 		cards: cardsSlice,
 		[api.reducerPath]: api.reducer,

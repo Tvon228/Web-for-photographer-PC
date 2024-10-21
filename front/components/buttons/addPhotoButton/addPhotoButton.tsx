@@ -7,10 +7,10 @@ import classes from "./addPhoto.module.sass"
 import useFormModal from "@/hooks/FormModal/useFormModal.hook"
 
 export default function AddPhotoButton() {
-	const [_, openFormModal] = useFormModal()
+	const {openFormModalAction}= useFormModal()
 
 	return (
-		<button className={classes.addButton} onClick={openFormModal}>
+		<button className={classes.addButton} onClick={openFormModalAction}>
 			<Image
 				src={addIcon}
 				alt="add_photo"

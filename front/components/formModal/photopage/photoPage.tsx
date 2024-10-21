@@ -1,22 +1,35 @@
 import classes from "./photoSide.module.sass"
 
-import { useCallback } from "react"
+import { useCallback, useEffect, useRef } from "react"
 
-import { usePhoto } from "@/hooks/FormModal/usePhoto.hook"
 
-export default function PhotoSide({ photos, setPhotoAction }: { photos: File[], setPhotoAction: (files: File[]) => void}) {
-	const { selectedFiles, addPhoto, removePhoto } = usePhoto() // Обновлено на использование selectedFiles
+interface PhotoSideProps { 
+	photos: File[], 
+	setPhotoAction: (files: File[]) => void,
+	opened: boolean
+}
 
+export default function PhotoSide({ opened, photos, setPhotoAction }: PhotoSideProps) {
+	const inputRef = useRef<HTMLInputElement>(null)
+	
 	const handleFileChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
 		setPhotoAction(Array.from(event.target.files as FileList))
 	}, [])
 
 	const handleButtonClick = () => {
-		const input = document.getElementById("file-input") as HTMLInputElement
-		if (input) {
-			input.click() // Имитируем клик по скрытому input
-		}
+		// @ts-ignore
+		inputRef.current.click()
 	}
+
+	const handleRemovePhoto = (removingPhoto: File) => {
+		const filteredPhotos = photos.filter(photo => photo.name !== removingPhoto.name)
+		setPhotoAction(filteredPhotos)
+	}
+
+	useEffect(() => {
+		// @ts-ignore
+		inputRef.current.value = null
+	}, [opened])	
 
 	return (
 		<div className={classes.form}>
@@ -33,7 +46,7 @@ export default function PhotoSide({ photos, setPhotoAction }: { photos: File[], 
 						<div key={file.name} className={classes.fileNameItem}>
 							<span>{file.name}</span>
 							<button
-								onClick={() => removePhoto(file)}
+								onClick={() => handleRemovePhoto(file)}
 								className={classes.removeButton}
 							>
 								✖
@@ -43,7 +56,7 @@ export default function PhotoSide({ photos, setPhotoAction }: { photos: File[], 
 				</div>
 			</div>
 			<input
-				id="file-input"
+				ref={inputRef}
 				type="file"
 				multiple
 				style={{ display: "none" }}

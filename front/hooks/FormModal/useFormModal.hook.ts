@@ -2,8 +2,7 @@ import { closeFormModal, openFormModal } from "@/src/slice/formModal"
 import { RootState } from "@/src/store"
 import { useDispatch, useSelector } from "react-redux"
 
-export default function useFormModal(): [boolean, () => void, () => void] {
-
+export default function useFormModal() {
     const dispatch = useDispatch()
     const formModal = useSelector((state: RootState) => state.formModal)
 
@@ -15,5 +14,5 @@ export default function useFormModal(): [boolean, () => void, () => void] {
         dispatch(closeFormModal())
     }
 
-    return [formModal.opened, openFormModalAction, closeFormModalAction]
+    return { opened: formModal.opened, openFormModalAction, closeFormModalAction}
 }
