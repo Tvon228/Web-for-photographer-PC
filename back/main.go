@@ -29,6 +29,7 @@ func main() {
 
 	routes.RegisterAuthRoutes(app, utils.Db)
 	routes.RegisterGalleryRoutes(app, dbInstance)
+	routes.RegisterPhotoRoutes(app, dbInstance.DB)
 
 	app.Run("0.0.0.0:8000")
 }

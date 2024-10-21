@@ -1,0 +1,96 @@
+.form
+    display: flex
+    flex-direction: column
+    row-gap: 10px
+
+.fileNamesContainer 
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    justify-content: space-between
+    gap: 10px
+    margin-top: 5px
+
+.fileNameItem 
+    width: 100%
+    justify-content: space-between
+    padding: 5px 7px
+    background-color: #e0e0e0
+    border-radius: 5px
+    display: flex
+    align-items: center
+
+.removeButton 
+    outline: none
+    font-family: inherit
+    padding: 0px 5px
+
+    border: 1px solid #8b8b8b5b
+    border-radius: 4px
+    color: #fff
+    font-size: 1em
+    cursor: pointer
+
+    transition: 150ms ease
+    background: #858585 
+    
+    &:hover
+        background: #ab2e0d
+
+    &:active
+        background: #4e2222
+
+.form_input
+    display: flex
+    flex-direction: column
+    gap: 20px
+    width: 100%
+    border-radius: 8px
+    border: 1px dashed #66666698
+    padding: 10px 15px
+
+.headerButton
+    outline: none
+    font-family: inherit
+    padding: 5px 10px
+
+    border: 1px solid #8b8b8b5b
+    border-radius: 4px
+    color: #fff
+    font-size: 1em
+    font-weight: 500
+    cursor: pointer
+
+    transition: 300ms ease
+    background: #67800d
+    &:hover
+        background: #86a517 
+
+    &:active
+        background: #66891b
+
+.downloadButton
+    outline: none
+    font-family: inherit
+    padding: 5px 10px
+
+    border: 1px solid #8b8b8b5b
+    border-radius: 4px
+    color: #9c9c9c
+    font-size: 1em
+    font-weight: 500
+
+    transition: 300ms ease
+    background: #e0e0e0
+
+    &.active 
+        cursor: pointer
+        background: #67800d 
+        color: #fff
+        transition: 300ms ease
+
+        &:hover
+            background: #86a517
+    
+    
+    
+

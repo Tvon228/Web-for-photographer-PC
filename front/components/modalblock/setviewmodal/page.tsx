@@ -21,7 +21,7 @@ export default function Gallery() {
 	return (
 		<div className={classes.container}>
 			<div className={classes.header}>Галереи</div>
-			<div className={classes.search_bar}>
+			<div className={classes.top_bar}>
 				<div className={classes.search}>
 					<input
 						type="text"
@@ -37,7 +37,7 @@ export default function Gallery() {
 						/>
 					</button>
 				</div>
-				<div className={classes.header_button}>
+				<div>
 					<AddButton />
 				</div>
 			</div>

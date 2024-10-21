@@ -8,6 +8,7 @@ import toast from "react-hot-toast"
 
 export default function AddGalleryModal() {
 	const containerRef = useRef(null)
+	const [isOpened, _, closeModal] = useModal()
 	const [createGallery] = useCreateGalleryMutation()
 	const [state, setState] = useState({
 		name: "",
@@ -15,8 +16,6 @@ export default function AddGalleryModal() {
 		client_message: "",
 		comment: "",
 	})
-
-	const [isOpened, _, closeModal] = useModal()
 
 	// Функция для сброса состояния
 	const resetState = () => {

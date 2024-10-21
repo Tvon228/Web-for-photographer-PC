@@ -12,12 +12,12 @@ import editIcon from "@/public/icons/edit.png"
 import movephotoIcon from "@/public/icons/movephoto.png"
 import deleteIcon from "@/public/icons/delete.png"
 
-import toast from "react-hot-toast" 
+import toast from "react-hot-toast"
 import useEditModal from "@/hooks/useEditModal.hook"
 
 interface GalleryCardProps {
 	gallery: Gallery
-	onDelete: (id: number) => void 
+	onDelete: (id: number) => void
 }
 
 export default function GalleryCard({ gallery, onDelete }: GalleryCardProps) {
@@ -27,8 +27,12 @@ export default function GalleryCard({ gallery, onDelete }: GalleryCardProps) {
 	const [_, openEditModal] = useEditModal()
 
 	const toPhotos = () => {
-        router.push("/photos")
-    }
+		if (gallery.id) {
+			router.push(`/gallery/${gallery.id}`)
+		} else {
+			console.error("Gallery ID is undefined")
+		}
+	}
 
 	const handleEdit = () => {
 		openEditModal(gallery)
@@ -40,8 +44,8 @@ export default function GalleryCard({ gallery, onDelete }: GalleryCardProps) {
 			return
 		}
 		try {
-			await deleteGallery(gallery.id).unwrap() 
-			onDelete(gallery.id) 
+			await deleteGallery(gallery.id).unwrap()
+			onDelete(gallery.id)
 			toast.success("Галерея успешно удалена!")
 		} catch (error) {
 			toast.error("Failed to delete gallery.")
@@ -66,7 +70,10 @@ export default function GalleryCard({ gallery, onDelete }: GalleryCardProps) {
 						</div>
 					</div>
 					<div className={classes.buttons}>
-						<button onClick={toPhotos} className={classes.edit_photos}>
+						<button
+							onClick={toPhotos}
+							className={classes.edit_photos}
+						>
 							<Image
 								src={movephotoIcon}
 								alt="move photo"
@@ -74,7 +81,10 @@ export default function GalleryCard({ gallery, onDelete }: GalleryCardProps) {
 							/>
 							Перейти к фото
 						</button>
-						<button onClick={handleEdit} className={classes.redaction}>
+						<button
+							onClick={handleEdit}
+							className={classes.redaction}
+						>
 							<Image
 								src={editIcon}
 								alt="edit"

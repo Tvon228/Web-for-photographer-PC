@@ -1,6 +1,5 @@
 .btn
     padding: 5px 10px
-    align-items: center
     border-radius: 8px
     border: 1px solid #d3d3d3
     color: #555555
@@ -8,9 +7,12 @@
     cursor: pointer
     transition: 150ms ease
 
-.addButton
+.uploadButton
     display: flex
-    gap: 3px
+    align-items: center
+    justify-content: center
+    height: 40px
+    gap: 5px
     
     @extend .btn
     background: #ffffff 
@@ -18,10 +20,11 @@
     
     &:hover
         background: #e4e4e4 
-
     
 .controlIcon
-    align-items: center
+    position: relative
+    top: 50% 
+    transform: translateY(-63%)
     width: 24px
     color: #cacaca
     height: 24px
