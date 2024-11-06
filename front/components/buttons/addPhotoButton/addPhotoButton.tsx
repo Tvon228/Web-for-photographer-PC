@@ -8,7 +8,7 @@ import useFormModal from "@/hooks/FormModal/useFormModal.hook"
 
 export default function AddPhotoButton() {
 	const {openFormModalAction}= useFormModal()
-
+	
 	return (
 		<button className={classes.addButton} onClick={openFormModalAction}>
 			<Image

@@ -4,6 +4,7 @@
     left: 0
     display: flex
     justify-content: center
+    z-index: 1000
     align-items: center
     background-color: rgba(0, 0, 0, 0.4)
     backdrop-filter: blur(1.5px)
@@ -12,6 +13,7 @@
     transition: 150ms ease-out
 
 .containerHidden
+    position: absolute
     opacity: 0
 
 .content
@@ -19,7 +21,7 @@
     display: flex
     flex-direction: column
     background-color: white
-    padding: 50px 30px 20px
+    padding: 50px 10px 20px
     align-items: center
     width: 550px
     row-gap: 30px
@@ -84,13 +86,6 @@
     gap: 25px
     width: 100%
     justify-content: flex-start
-    font-size: 1.2em
-
-.buttons
-    width: 100%
-    display: flex
-    gap: 10px
-    justify-content: flex-end
 
 
     

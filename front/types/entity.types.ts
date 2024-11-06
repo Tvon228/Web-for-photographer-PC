@@ -8,7 +8,9 @@ export type Gallery = {
 
 export type Photo = {
 	id: number
-	nanoid_filename: string
+	uuid: string
 	original_name: string
 	uploaded_at: string
+	extension: string
+	file_path: string
 }

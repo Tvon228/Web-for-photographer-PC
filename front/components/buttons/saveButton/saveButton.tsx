@@ -1,17 +1,17 @@
 import classes from "./saveButton.module.sass"
 
+import { cssIf } from "@/utils/utils"
+
 interface ButtonProps {
 	onClick: () => void
 	disabled: boolean
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, disabled }) => {
+export default function Button({ onClick, disabled }: ButtonProps) {
 	return (
 		<button
 			className={
-				classes.addButton +
-				" " +
-				(disabled && classes.disabled)
+				cssIf(disabled, classes.addButtonDisabled, classes.addButton)
 			}
 			onClick={onClick}
 			disabled={disabled}
@@ -21,4 +21,4 @@ const Button: React.FC<ButtonProps> = ({ onClick, disabled }) => {
 	)
 }
 
-export default Button
+

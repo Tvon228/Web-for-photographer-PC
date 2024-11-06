@@ -14,14 +14,12 @@
     @extend .btn
     background: #80ac23
 
-    &:hover
-        background: #739a1f  
-
     &:active
         background: #66891b
 
-    &.disabled 
-        background-color: lightgray 
-        color: darkgray 
-        cursor: not-allowed 
+.addButtonDisabled
+    @extend .addButton
 
+    background-color: lightgray
+    color: darkgray
+    cursor: not-allowed

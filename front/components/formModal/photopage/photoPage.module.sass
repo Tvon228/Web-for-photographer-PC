@@ -1,7 +1,7 @@
 .form
     display: flex
     flex-direction: column
-    row-gap: 10px
+    row-gap: 20px
 
 .fileNamesContainer 
     display: grid
@@ -42,8 +42,9 @@
 .form_input
     display: flex
     flex-direction: column
-    gap: 20px
+    gap: 10px
     width: 100%
+    font-size: 1.2em
     border-radius: 8px
     border: 1px dashed #66666698
     padding: 10px 15px
@@ -68,28 +69,12 @@
     &:active
         background: #66891b
 
-.downloadButton
-    outline: none
-    font-family: inherit
-    padding: 5px 10px
-
-    border: 1px solid #8b8b8b5b
-    border-radius: 4px
-    color: #9c9c9c
-    font-size: 1em
-    font-weight: 500
-
-    transition: 300ms ease
-    background: #e0e0e0
-
-    &.active 
-        cursor: pointer
-        background: #67800d 
-        color: #fff
-        transition: 300ms ease
-
-        &:hover
-            background: #86a517
+.buttons
+    border: none
+    width: 100%
+    display: flex
+    gap: 10px
+    justify-content: flex-end
     
     
     

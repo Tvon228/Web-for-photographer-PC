@@ -9,5 +9,6 @@ type Photo struct {
 	GalleryID      int       `json:"gallery_id"`               
 	UUID           string    `json:"uuid"`                    
 	OriginalName   string    `json:"original_name"`           
-	UploadedAt     time.Time `json:"uploaded_at"`             
+	UploadedAt     time.Time `json:"uploaded_at"`   
+	Extension      string 	 `json:"extension"`    
 }

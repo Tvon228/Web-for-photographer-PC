@@ -13,6 +13,10 @@ const baseQuery = fetchBaseQuery({
 	},
 })
 
+interface PhotoApiResponse {
+    photos: Photo[] // Предполагается, что Photo — это ваш тип для фотографии
+}
+
 export const api = createApi({
 	reducerPath: "api",
 	baseQuery,
@@ -64,6 +68,10 @@ export const api = createApi({
 			},
 			invalidatesTags: [{ type: "Photo", id: "ALL" }],
 		}),
+		getPhotos: builder.query<PhotoApiResponse, number>({
+			query: (galleryId) => `/gallery/${galleryId}/photos`,
+			providesTags: [{ type: "Photo", id: "ALL" }],
+		}),
 	}),
 })
 export const {
@@ -72,4 +80,5 @@ export const {
 	useUpdateGalleryMutation,
 	useDeleteGalleryMutation,
 	useUploadPhotoMutation,
+	useGetPhotosQuery,
 } = api

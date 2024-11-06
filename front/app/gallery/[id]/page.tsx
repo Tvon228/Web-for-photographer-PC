@@ -8,8 +8,8 @@ export default function ViewPhotos({ params }: { params: { id: number } }) {
 
 	return (
 		<>
-			<Photos />
 			<FormModal galleryId={galleryId} />
+			<Photos galleryId={galleryId}/>
 		</>
 	)
 }
