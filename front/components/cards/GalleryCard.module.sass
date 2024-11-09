@@ -15,10 +15,18 @@
     gap: 24px
 
 .cover 
-    border-radius: 4px
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
     width: 12%
     height: 140px
-    background: #333333
+
+    div
+        font-size: 1.2em
+
+    span
+        font-size: 5em
 
 .header
     display: flex
@@ -80,21 +88,6 @@
 
     &:active
         background: #bdbdbd 
-
-.state
-    position: absolute
-    right: 0
-    display: flex
-    background: #B3E283
-    align-items: center
-    justify-content: center
-    border-radius: 8px
-    gap: 5px
-    padding: 0px 10px
-    height: 30px
-    
-    span 
-        font-size: 1.1em
 
 .controlIcon
     width: 24px

@@ -56,18 +56,13 @@ export default function GalleryCard({ gallery, onDelete }: GalleryCardProps) {
 	return (
 		<div className={classes.conteiner}>
 			<div className={classes.content}>
-				<div className={classes.cover}></div>
+				<div className={classes.cover}>
+					<div>№ галереи</div>
+					<span>{gallery.id}</span>
+				</div>
 				<div className={classes.information}>
 					<div className={classes.header}>
 						<span>{gallery.name}</span>
-						<div className={classes.state}>
-							<Image
-								src={readyIcon}
-								alt="gallery ready"
-								className={classes.controlIcon}
-							/>
-							<span>Готово</span>
-						</div>
 					</div>
 					<div className={classes.buttons}>
 						<button

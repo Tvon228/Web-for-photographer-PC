@@ -6,4 +6,6 @@ type Gallery struct {
 	Password        string    `json:"password"`
 	Client_message 	string	  `json:"client_message"`
 	Comment 		string	  `json:"comment"`
+
+	Photos    []Photo   `gorm:"constraint:OnDelete:CASCADE;"`
 }

@@ -11,7 +11,7 @@ function renderGalleries(list: Gallery[], onDelete: (id: number) => void) {
 }
 
 export default function GalleryList({ searchQuery }: { searchQuery: string }) {
-	const { data: response, isLoading } = useGetGalleriesQuery()
+	const { data: response, isLoading, refetch } = useGetGalleriesQuery()
 	const [deleteGallery] = useDeleteGalleryMutation()
 	const [galleries, setGalleries] = useState<Gallery[]>([])
 
@@ -27,6 +27,7 @@ export default function GalleryList({ searchQuery }: { searchQuery: string }) {
 			setGalleries((prevGalleries) =>
 				prevGalleries.filter((gallery) => gallery.id !== id)
 			)
+			refetch()
 		} catch (error) {
 			console.error("Ошибка удаления галереи:", error)
 		}

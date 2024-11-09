@@ -1,8 +1,11 @@
 package routes
 
 import (
+  "os"
+  "path/filepath"
   "net/http"
   "strconv"
+  "gorm.io/gorm"
 
   "github.com/gin-gonic/gin"
   "github.com/try_2_backend/models"
@@ -42,13 +45,47 @@ func RegisterGalleryRoutes(router *gin.Engine, db *database.DB) {
   })
 
   router.DELETE("/galleries/:id", func(ctx *gin.Context) {
-    id := ctx.Param("id")
-    if err := db.DeleteGallery(id); err != nil {
-      ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete gallery"})
-      return
+    idStr := ctx.Param("id")
+    galleryID, err := strconv.Atoi(idStr)
+    if err != nil {
+        ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid gallery ID"})
+        return
     }
-    ctx.JSON(http.StatusOK, gin.H{"result": true})
+
+    // Найти все фотографии в галерее
+    var photos []models.Photo
+    if err := db.Where("gallery_id = ?", galleryID).Find(&photos).Error; err != nil {
+        ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve photos"})
+        return
+    }
+
+    // Удалить файлы с сервера
+    for _, photo := range photos {
+        filePath := filepath.Join("../front/public/uploads", photo.UUID + photo.Extension)
+        if err := os.Remove(filePath); err != nil && !os.IsNotExist(err) {
+            ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete photo file"})
+            return
+        }
+    }
+
+    // Удалить галерею и связанные фотографии из базы данных
+    if err := db.Transaction(func(tx *gorm.DB) error {
+        if err := tx.Delete(&models.Gallery{}, galleryID).Error; err != nil {
+            return err
+        }
+        if err := tx.Where("gallery_id = ?", galleryID).Delete(&models.Photo{}).Error; err != nil {
+            return err
+        }
+        return nil
+    }); err != nil {
+        ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete gallery and photos from database"})
+        return
+    }
+
+    ctx.JSON(http.StatusOK, gin.H{"message": "Gallery and associated photos deleted successfully"})
   })
+
+
 
   // Обработчик PUT-запросов для обновления информации о галерее
   router.PUT("/galleries/:id", func(ctx *gin.Context) {
